@@ -9,6 +9,9 @@ import TableManaging.Parsers.NotificationParser;
 import TableManaging.Parsers.PostParser;
 import TableManaging.Parsers.UserParser;
 import java.io.File;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
  
 
 /**
@@ -42,6 +45,27 @@ public class DB{
      * Table of User object that takes data from current_user.txt
      */
     public static final TableTXT<User> CURR_USER = new TableTXT<>(new File(TABLES_FOLDER, "current_user.txt"), new UserParser());
+
+    public static void main(String[] args) {
+        // MySQL database URL
+        String url = "jdbc:mysql://localhost:3306/planinator"; // Replace with your DB details
+        String username = "root"; // Your MySQL username
+        String password = "1234"; // Your MySQL password
+
+        try {
+            // Establish connection
+            Connection connection = DriverManager.getConnection(url, username, password);
+            System.out.println("Connected to the database!");
+            
+            // You can now interact with the DB using this connection
+            
+            // Close the connection when done
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
 
